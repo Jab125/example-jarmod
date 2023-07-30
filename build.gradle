@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'com.jab125.mccustom' version "1.1"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+def MINECRAFT_VERSION = "1.20.1"
+def YARN_VERSION = "1.20.1+build.8"
+mcCustom {
+    minecraft.set(MINECRAFT_VERSION)
+    yarn.set(YARN_VERSION)
+    patchedClasses.addAll("net/minecraft/client/gui/screen/TitleScreen", "net/minecraft/util/crash/CrashReportSection")
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.jab125.dev/"
+    }
+}
+
+configurations {
+    implementation.extendsFrom api
+    implementation.extendsFrom library // must be library or patches will fail!
+    library.canBeResolved(true)
+}
+
+def asmVersion = "9.4"
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'cache/minecraft/libraries')
+    implementation fileTree(include: ["$MINECRAFT_VERSION/$MINECRAFT_VERSION-yarn-dev.jar"], dir: 'cache/minecraft')
+    implementation 'org.jetbrains:annotations:23.0.0'
+    library 'com.google.code.findbugs:jsr305:3.0.2'
+    library 'com.jab125:tweakloader:0.1.2'
+
+    library "org.ow2.asm:asm:${asmVersion}"
+    library "org.ow2.asm:asm-analysis:${asmVersion}"
+    library "org.ow2.asm:asm-commons:${asmVersion}"
+    library "org.ow2.asm:asm-tree:${asmVersion}"
+    library "org.ow2.asm:asm-util:${asmVersion}"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "patchSrc"
+        }
+    }
+}

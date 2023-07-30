@@ -1,0 +1,39 @@
+--- a/net/minecraft/class_442.java
++++ b/net/minecraft/class_442.java
+@@ -213,8 +213,8 @@
+ 					button -> {
+ 						class_32 $$1 = this.field_22787.method_1586();
+ 			
+-						try (class_32.class_5143 $$2 = $$1.method_27002("Demo_World")) {
+-							class_34 $$3 = $$2.method_29584();
++						try (class_32.class_5143 $$$2 = $$1.method_27002("Demo_World")) {
++							class_34 $$3 = $$$2.method_29584();
+ 							if ($$3 != null) {
+ 								this.field_22787
+ 									.method_1507(
+@@ -282,18 +282,13 @@
+ 				this.field_2586.method_51453(context, this.field_22789, this.field_22793, $$6);
+ 			}
+ 
+-			String $$7 = "Minecraft " + class_155.method_16673().method_48019();
+-			if (this.field_22787.method_1530()) {
+-				$$7 = $$7 + " Demo";
+-			} else {
+-				$$7 = $$7 + ("release".equalsIgnoreCase(this.field_22787.method_1547()) ? "" : "/" + this.field_22787.method_1547());
+-			}
+-
+-			if (class_310.method_24289().method_39029()) {
+-				$$7 = $$7 + class_1074.method_4662("menu.modded");
+-			}
+-
+-			context.method_25303(this.field_22793, $$7, 2, this.field_22790 - 10, 16777215 | $$6);
++			String[] branding = {"Minecraft " + class_155.method_16673().method_48019(), "Tweak Loader 0.1.2", "Example Jarmod 1.0-SNAPSHOT"};
++			int i = 0;
++			int lineHeight = this.field_22793.field_2000;
++			for (String s : branding) {
++				context.method_25303(this.field_22793, s, 2, this.field_22790 - 10 - i, 16777215 | $$6);
++				i += lineHeight;
++			}
+ 
+ 			for(class_364 $$8 : this.method_25396()) {
+ 				if ($$8 instanceof class_339) {
