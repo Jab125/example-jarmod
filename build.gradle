@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'com.jab125.mccustom' version "1.1"
+    id 'com.jab125.mccustom' version "1.2"
 }
 
 group 'org.example'
@@ -11,7 +11,6 @@ def YARN_VERSION = "1.20.1+build.8"
 mcCustom {
     minecraft.set(MINECRAFT_VERSION)
     yarn.set(YARN_VERSION)
-    patchedClasses.addAll("net/minecraft/client/gui/screen/TitleScreen", "net/minecraft/util/crash/CrashReportSection")
 }
 
 repositories {
@@ -29,9 +28,9 @@ configurations {
 
 def asmVersion = "9.4"
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'cache/minecraft/libraries')
-    implementation fileTree(include: ["$MINECRAFT_VERSION/$MINECRAFT_VERSION-yarn-dev.jar"], dir: 'cache/minecraft')
-    implementation 'org.jetbrains:annotations:23.0.0'
+    library fileTree(include: ['*.jar'], dir: 'cache/minecraft/libraries')
+    library fileTree(include: ["$MINECRAFT_VERSION/$MINECRAFT_VERSION-yarn-dev.jar"], dir: 'cache/minecraft')
+    library 'org.jetbrains:annotations:23.0.0'
     library 'com.google.code.findbugs:jsr305:3.0.2'
     library 'com.jab125:tweakloader:0.1.2'
 
